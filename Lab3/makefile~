@@ -1,0 +1,5 @@
+cc=g++
+cflags= -std=c++11 -pthread -o sig.exe
+cfiles= signal.cpp Semaphore.cpp
+all: $(cfiles)
+	$(cc) $(cflags) *.cpp -o sig.exe

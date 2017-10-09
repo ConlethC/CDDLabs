@@ -1,0 +1,2 @@
+semamake: semaphore.cpp signal.cpp
+	gcc -o semamake semaphore.cpp signal.cpp -I.

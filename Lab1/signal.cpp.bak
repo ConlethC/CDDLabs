@@ -1,0 +1,26 @@
+#include "Semaphore.h"
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+void taskOne(std::shared_ptr<Semaphore> theSemaphore){
+  std::cout << "First thread about to signal"<<std::endl;
+  theSemaphore->Signal();
+}
+void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
+  std::cout << "Waiting on signal"<<std::endl;
+  theSemaphore->Wait();
+  std::cout << "Signal recieved"<<std::endl;
+}
+
+int main(void){
+  std::thread threadOne, threadTwo;
+  std::shared_ptr<Semaphore> sem( new Semaphore);
+  /**< Launch the threads  */
+  threadOne=std::thread(taskTwo,sem);
+  threadTwo=std::thread(taskOne,sem);
+  std::cout << "Launched from the main\n";
+  threadOne.join();
+  threadTwo.join();
+  return 0;
+}
